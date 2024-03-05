@@ -30,6 +30,11 @@ let persons = [
 app.get('/' , (request,response)=>{
     response.send('<h1>HELLO Trhe</h1>')
 })
+app.get('/info' , (request,response)=>{
+    const personsCount = persons.length
+    const currentTime = new Date()
+    response.send(`<p>Phonebook has info of ${personsCount} contacts </bn> </br> ${currentTime}</p>`)
+})
 app.get('/api/persons' , (request,response)=>{
     response.json(persons)
 })
