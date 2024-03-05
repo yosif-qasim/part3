@@ -65,10 +65,23 @@ app.delete('/api/persons/:id' , (request,response)=>{
 app.post( "/api/persons" , (request , response )=>{
     const person = request.body
 
+    if (!person.name || !person.number) {
+        return response.status(400).json({
+            error: 'some data is missing'
+        })
+    } else if(persons.find( (p) =>person.name === p.name)) {
+        return response.status(400).json({
+            error: 'person already exists'
+        })
+    }
+
     person.id = (persons.length)+1
     persons = persons.concat(person)
     response.json(person)
 })
+
+
+
 
 const PORT = 3001
 app.listen(PORT , () => {
