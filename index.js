@@ -39,15 +39,28 @@ app.get('/api/persons' , (request,response)=>{
     response.json(persons)
 })
 // lol already added
+
 app.get('/api/persons/:id' , (request,response)=>{
     const id = Number(request.params.id)
     const person = persons.find( p => p.id === id )
     if (person) {
-        response.json(person)
+        response.send(person)
     }else {
         response.status(404).end()
     }
 })
+
+app.delete('/api/persons/:id' , (request,response)=>{
+    const id = Number(request.params.id)
+    const person = persons.find( p => p.id === id )
+    persons = persons.filter( p => p.id !== id )
+    if (person) {
+        response.send(`person with id ${id} deleted`)
+    }else {
+        response.status(404).end()
+    }
+})
+
 
 
 const PORT = 3001
