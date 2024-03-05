@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+app.use(express.json())
 
 let persons = [
     {
@@ -61,7 +62,13 @@ app.delete('/api/persons/:id' , (request,response)=>{
     }
 })
 
+app.post( "/api/persons" , (request , response )=>{
+    const person = request.body
 
+    person.id = (persons.length)+1
+    persons = persons.concat(person)
+    response.json(person)
+})
 
 const PORT = 3001
 app.listen(PORT , () => {
