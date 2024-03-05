@@ -38,6 +38,7 @@ app.get('/info' , (request,response)=>{
 app.get('/api/persons' , (request,response)=>{
     response.json(persons)
 })
+// lol already added
 app.get('/api/persons/:id' , (request,response)=>{
     const id = Number(request.params.id)
     const person = persons.find( p => p.id === id )
