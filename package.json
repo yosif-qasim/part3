@@ -20,5 +20,8 @@
   "homepage": "https://github.com/yosif-qasim/part3#readme",
   "devDependencies": {
     "nodemon": "^3.1.0"
+  },
+  "dependencies": {
+    "morgan": "^1.10.0"
   }
 }
