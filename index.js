@@ -50,7 +50,9 @@ app.get('/info' , (request,response)=>{
 app.get('/api/persons' , (request,response)=>{
     response.json(persons)
 })
-// lol already added
+
+
+// lol already done
 
 app.get('/api/persons/:id' , (request,response)=>{
     const id = Number(request.params.id)
