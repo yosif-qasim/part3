@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "part3",
   "version": "1.0.0",
   "description": "part 3 from fullstackopen course",
@@ -7,7 +8,7 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "%echo \"no test cases & exit 1\"%",
-    "build:ui": "rm -rf dist && cd ./Phonebook_frontend && npm run build && cp -r dist ./",
+    "build:ui": "rm -rf dist && cd ../part2/Phonebook && npm run build && cp -r dist ../../part3",
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push"
   },
   "repository": {
@@ -24,6 +25,7 @@
     "nodemon": "^3.1.0"
   },
   "dependencies": {
+    "dotenv": "^16.4.5",
     "mongoose": "^8.2.1",
     "morgan": "^1.10.0"
   }
