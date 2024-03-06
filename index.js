@@ -25,7 +25,7 @@ const unknownEndpoint = (request, response) => {
 
 /*---------------------GET requests-------------------------*/
 app.get('/' , (request,response)=>{
-    response.send('<h1>HELLO Trhe</h1>')
+    response.send('<h1>HELLO There</h1>')
 
 })
 
@@ -61,17 +61,9 @@ app.get('/api/persons/:id' , (request,response , next)=>{
 /*---------------------DELETE requests-------------------------*/
 
 app.delete('/api/persons/:id' , (request,response , next)=>{
-    // const id = Number(request.params.id)
-    // const person = persons.find( p => p.id === id )
-    // persons = persons.filter( p => p.id !== id )
     Contact.findByIdAndDelete(request.params.id).then(result => {
             response.status(204).end()
     }) .catch(error => next(error))
-    // if (response.contact) {
-    //     response.send(`person with id ${id} deleted`)
-    // }else {
-    //     response.status(404).end()
-    // }
 })
 
 /*---------------------POST requests-------------------------*/
@@ -99,10 +91,29 @@ app.post( "/api/persons" , (request , response )=>{
     })
 })
 
-app.use(unknownEndpoint)
+/*---------------------PUT requests-------------------------*/
+
+app.put( '/api/persons/:id' , (request , response , next)=>{
+    const person = request.body
+
+    const contact = {
+        name : person.name,
+        number : person.number
+    }
+
+    Contact.findByIdAndUpdate(request.params.id , contact , { new: true })
+        .then( result => {
+        console.log( " result " , result)
+        response.json(result)
+    }).catch(error => next(error))
+})
+
+
+
 
 //alredy done :)
 
+app.use(unknownEndpoint)
 
 const errorHandler = (error, request, response, next) => {
     console.error(error.message)
@@ -113,6 +124,7 @@ const errorHandler = (error, request, response, next) => {
 
     next(error)
 }
+
 
 app.use(errorHandler)
 
