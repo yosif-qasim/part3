@@ -38,7 +38,6 @@ app.get('/info' , (request,response)=>{
 app.get('/api/persons' , (request,response)=>{
     Contact.find({})
         .then( persons => {
-            console.log( "contact : ---> ", persons, typeof persons)
             return response.json(persons)
 
         })
@@ -54,7 +53,7 @@ app.get('/api/persons/:id' , (request,response , next)=>{
         }else {
             response.status(404).end()
         }
-    })    .catch(error => next(error))
+    }).catch(error => next(error))
 })
 
 
@@ -109,9 +108,6 @@ app.put( '/api/persons/:id' , (request , response , next)=>{
 })
 
 
-
-
-//alredy done :)
 
 app.use(unknownEndpoint)
 
