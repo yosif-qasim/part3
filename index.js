@@ -5,6 +5,9 @@ app.use(express.json())
 app.use(express.static('dist'))
 require('dotenv').config()
 
+const cors = require('cors')
+
+app.use(cors())
 
 morgan.token( 'data' , (request)=> JSON.stringify(request.body))
 app.use(morgan(' :method :url :status :res[content-length] - :response-time ms :data'))
