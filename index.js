@@ -6,44 +6,24 @@ app.use(express.static('dist'))
 require('dotenv').config()
 
 const cors = require('cors')
-
 app.use(cors())
 
 morgan.token( 'data' , (request)=> JSON.stringify(request.body))
 app.use(morgan(' :method :url :status :res[content-length] - :response-time ms :data'))
-//
-// const mongoose = require('mongoose')
-// mongoose.set('strictQuery', false)
-// const url = `mongodb+srv://yossif:123@fso.tshfdlf.mongodb.net/PhoneBook?retryWrites=true&w=majority&appName=FSO`
-// mongoose.connect(url)
-//     .then(result => console.log("connection succeseful" ))
-//     .catch( (error) => console.log("connection failed" , error.message))
-//
-//
-//
-// const contactSchema = new mongoose.Schema({
-//     name : String,
-//     number : String,
-// })
-//
-// contactSchema.set('toJSON',{
-//     transform: (document, returnedObject) => {
-//         returnedObject.id = returnedObject._id.toString()
-//         delete returnedObject._id
-//         delete returnedObject.__v
-//     }
-// })
+
 
 const Contact =  require('./models/mongo')
 
-let persons = [
 
+let persons = [
 ]
 
 
 const unknownEndpoint = (request, response) => {
     response.status(404).send({ error: 'unknown endpoint' })
 }
+
+/*---------------------GET requests-------------------------*/
 app.get('/' , (request,response)=>{
     response.send('<h1>HELLO Trhe</h1>')
 
@@ -58,7 +38,7 @@ app.get('/info' , (request,response)=>{
 app.get('/api/persons' , (request,response)=>{
     Contact.find({})
         .then( persons => {
-            console.log( "contact : ---> ", persons)
+            console.log( "contact : ---> ", persons, typeof persons)
             return response.json(persons)
 
         })
@@ -67,14 +47,14 @@ app.get('/api/persons' , (request,response)=>{
     } )
 })
 
-
-// lol already done
-
 app.get('/api/persons/:id' , (request,response)=>{
     Contact.findById(request.params.id).then(contact => {
         response.json(contact)
     })
 })
+
+
+/*---------------------DELETE requests-------------------------*/
 
 app.delete('/api/persons/:id' , (request,response)=>{
     const id = Number(request.params.id)
@@ -86,6 +66,8 @@ app.delete('/api/persons/:id' , (request,response)=>{
         response.status(404).end()
     }
 })
+
+/*---------------------POST requests-------------------------*/
 
 app.post( "/api/persons" , (request , response )=>{
     const person = request.body
@@ -118,4 +100,3 @@ const PORT = process.env.PORT
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })
-// console.log('hello world')

@@ -7,6 +7,7 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "%echo \"no test cases & exit 1\"%",
+    "build": "rm -rf dist && cd ../part2/Phonebook && npm run build  &&cp -r dist ../../part3 &&  cd ../../part3 && npm run dev",
     "build:ui": "rm -rf dist && cd ../part2/Phonebook && npm run build && cp -r dist ../../part3",
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push"
   },
